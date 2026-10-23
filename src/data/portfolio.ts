@@ -104,6 +104,25 @@ export const works: Work[] = [
       detail("pulse", 6, 5, 5, "반응형 시스템", "PULSE 상세 이미지 5: 데스크톱·모바일 화면과 색상·글꼴 시스템 요약", 848, 1264),
     ],
   },
+  {
+    slug: "flown",
+    title: "FLOWN — 업무 자동화 SaaS 랜딩페이지",
+    kind: "SAAS LANDING",
+    year: "2026",
+    host: "flown.preview",
+    summary: "소규모 기업용 업무 자동화 서비스를 가정한 SaaS 랜딩페이지. 기능 소개부터 요금제 비교, 무료 체험 신청까지 한 페이지로 구성했습니다.",
+    description:
+      "흩어진 업무를 연결하고 반복 작업을 자동화하는 B2B SaaS를 가정해 디자인부터 개발까지 진행한 콘셉트 랜딩페이지입니다. 와이드 영문 타이포그래피와 웜 그레이 톤으로 제품의 인상을 만들고, 자동화 플로·주간 리포트 화면을 카드로 보여 줍니다. 월간·연간 요금 전환(숫자 전환 애니메이션 포함)과 체험 신청 화면 흐름을 Next.js로 구현했습니다.",
+    scope: ["UI 디자인", "Next.js 개발", "반응형 · 인터랙션"],
+    tags: ["SaaS", "Landing", "Interaction"],
+    thumb: "/portfolio/flown/thumb.webp",
+    thumbAlt: "FLOWN 랜딩페이지 첫 화면: 화면 가득한 FLOWN 로고 위에 기울어진 대시보드 창",
+    concept: true,
+    shots: [
+      { src: "/portfolio/flown/01.webp", width: 1440, height: 5252, displayWidth: 1440, label: "랜딩페이지 — 1440px 데스크톱", alt: "FLOWN 랜딩페이지 데스크톱 전체 화면: 히어로, 핵심 기능 3가지, 워크플로 자동화, 자동 리포트, 지표, 고객 후기, 요금제, 무료 체험 신청" },
+      { src: "/portfolio/flown/02.webp", width: 780, height: 15166, displayWidth: 390, label: "랜딩페이지 — 390px 모바일", alt: "FLOWN 랜딩페이지 모바일 전체 화면: 데스크톱과 같은 구성이 한 열로 쌓인 화면" },
+    ],
+  },
 ];
 
 export const getWork = (slug: string) => works.find((w) => w.slug === slug);

@@ -11,7 +11,7 @@ const OUT = path.resolve("out");
 const PORT = 4174, CDP = 9334, BASE = `http://127.0.0.1:${PORT}`;
 const SHOTS = process.env.SHOTS;
 const WIDTHS = [375, 430, 768, 1440, 1920];
-const WORKS = ["greenform", "form-space", "pulse"];
+const WORKS = ["greenform", "form-space", "pulse", "flown"];
 const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".xml": "application/xml", ".txt": "text/plain", ".png": "image/png", ".webp": "image/webp", ".woff2": "font/woff2", ".ico": "image/x-icon" };
 
 if (!existsSync(OUT)) throw new Error("out/ 이 없습니다. 먼저 npm run build 를 실행하세요.");
@@ -144,9 +144,9 @@ try {
   const pfTop = await m.js("Math.round(document.getElementById('portfolio').getBoundingClientRect().top)");
   check("포트폴리오 보기 → 포트폴리오 영역 (헤더에 가리지 않음)", pfTop >= 70 && pfTop <= 100, `top=${pfTop}`);
 
-  // 포트폴리오 카드: 3개는 상세 링크, 1개는 준비 중(링크 없음)
+  // 포트폴리오 카드: 모두 상세 링크, 남는 칸은 준비 중(링크 없음)
   const cards = await m.js(`[...document.querySelectorAll('#portfolio article')].map(a => a.querySelector('a')?.getAttribute('href') ?? null)`);
-  check("포트폴리오 카드 3개 + 빈 자리 1개", JSON.stringify(cards) === JSON.stringify([...WORKS.map((s) => `/portfolio/${s}/`), null]), JSON.stringify(cards));
+  check(`포트폴리오 카드 ${WORKS.length}개 + 빈 자리 ${4 - WORKS.length}개`, JSON.stringify(cards) === JSON.stringify([...WORKS.map((s) => `/portfolio/${s}/`), ...Array(4 - WORKS.length).fill(null)]), JSON.stringify(cards));
   const covers = await m.js(`(() => { const c = document.querySelector('#portfolio article'); const a = c.querySelector('a'); const r = c.getBoundingClientRect(); const ar = getComputedStyle(a, '::after'); return ar.position === 'absolute' && ar.content !== 'none'; })()`);
   check("카드 전체가 눌림(늘린 링크)", covers);
 
@@ -206,7 +206,7 @@ try {
     check(`${url} → ${status}`, (await fetch(BASE + url)).status === status);
   }
   const sitemap = await (await fetch(BASE + "/sitemap.xml")).text();
-  check("sitemap: 홈 + 상세 3개", (sitemap.match(/<loc>/g) ?? []).length === 4 && WORKS.every((s) => sitemap.includes(`/portfolio/${s}/</loc>`)));
+  check(`sitemap: 홈 + 상세 ${WORKS.length}개`, (sitemap.match(/<loc>/g) ?? []).length === WORKS.length + 1 && WORKS.every((s) => sitemap.includes(`/portfolio/${s}/</loc>`)));
   const head = readFileSync(path.join(OUT, "index.html"), "utf8");
   for (const [name, re] of [["lang=ko", /<html lang="ko"/], ["title", /<title>웹메이트\(Webmate\) \| /], ["description", /<meta name="description"/], ["og:image", /property="og:image" content="https?:\/\/[^"]+\/og-image\.png"/], ["canonical", /rel="canonical"/], ["icon", /rel="icon"/], ["JSON-LD", /application\/ld\+json/]]) check(`head: ${name}`, re.test(head));
 
