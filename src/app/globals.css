@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/* 디자인 토큰. 색은 시안 그대로 Tailwind neutral 단계(neutral-50~900)를 쓰고, 새 강조색은 두지 않는다. */
+@theme {
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  /* 고정폭 글꼴에는 한글이 없어, 라벨에 한글이 섞이면 Pretendard 로 이어지게 한다. */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Pretendard Variable", monospace;
+  --spacing-header: 5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* 고정 헤더(h-20)에 섹션 제목이 가리지 않게 한다. */
+  scroll-padding-top: var(--spacing-header);
+}
+
+body {
+  background: #fff;
+  color: var(--color-neutral-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--color-neutral-900);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-neutral-900);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}
