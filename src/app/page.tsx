@@ -247,7 +247,10 @@ export default function Home() {
                     {windowDots("size-2")}
                     <span className="ml-2 truncate font-mono text-[11px] text-neutral-500">{w.host}</span>
                   </div>
-                  {w.concept && <span className="rounded-sm bg-neutral-200 px-2 py-0.5 font-mono text-[10px] font-semibold text-neutral-700">CONCEPT</span>}
+                  <div className="flex shrink-0 gap-1.5">
+                    {w.live && <span className="rounded-sm bg-neutral-900 px-2 py-0.5 font-mono text-[10px] font-semibold text-white">LIVE</span>}
+                    {w.concept && <span className="rounded-sm bg-neutral-200 px-2 py-0.5 font-mono text-[10px] font-semibold text-neutral-700">CONCEPT</span>}
+                  </div>
                 </div>
                 <div className="relative aspect-[37/16] w-full overflow-hidden border-b border-neutral-200 bg-neutral-100">
                   <Image src={w.thumb} alt={w.thumbAlt} width={1184} height={512} sizes="(min-width: 1280px) 592px, (min-width: 768px) 50vw, 100vw" className="size-full object-cover grayscale-[30%] transition-all duration-300 group-hover:grayscale-0" />

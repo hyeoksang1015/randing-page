@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // FLOWN 데모 빌드 결과물(flown 폴더의 npm run export:webmate 가 복사한다).
+    "public/demo/**",
   ]),
 ]);
 

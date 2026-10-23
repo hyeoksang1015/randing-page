@@ -24,6 +24,10 @@ export type Work = {
   thumbAlt: string;
   concept: boolean;
   shots: Shot[];
+  /** 실제로 써 볼 수 있는 데모(이 사이트 public/ 안 경로). 있으면 카드에 LIVE 배지, 상세에 데모 버튼이 생긴다. */
+  live?: { url: string; title: string; note: string };
+  /** 백엔드 구성. 있으면 상세 페이지에 "백엔드 구성" 영역이 생긴다. */
+  backend?: { title: string; text: string }[];
 };
 
 /** 홈 포트폴리오 그리드 칸 수. 작업이 이보다 적으면 남는 칸은 "준비 중"으로 채운다. */
@@ -106,21 +110,34 @@ export const works: Work[] = [
   },
   {
     slug: "flown",
-    title: "FLOWN — 업무 자동화 SaaS 랜딩페이지",
-    kind: "SAAS LANDING",
+    title: "FLOWN — 업무 자동화 SaaS 웹서비스 (회원가입·로그인 구현)",
+    kind: "FULL-STACK SAAS",
     year: "2026",
     host: "flown.preview",
-    summary: "소규모 기업용 업무 자동화 서비스를 가정한 SaaS 랜딩페이지. 기능 소개부터 요금제 비교, 무료 체험 신청까지 한 페이지로 구성했습니다.",
+    summary: "업무 자동화 SaaS를 가정해 랜딩페이지부터 회원가입·로그인·대시보드까지 만든 풀스택 작업. 실제로 가입하고 로그인해 볼 수 있습니다.",
     description:
-      "흩어진 업무를 연결하고 반복 작업을 자동화하는 B2B SaaS를 가정해 디자인부터 개발까지 진행한 콘셉트 랜딩페이지입니다. 와이드 영문 타이포그래피와 웜 그레이 톤으로 제품의 인상을 만들고, 자동화 플로·주간 리포트 화면을 카드로 보여 줍니다. 월간·연간 요금 전환(숫자 전환 애니메이션 포함)과 체험 신청 화면 흐름을 Next.js로 구현했습니다.",
-    scope: ["UI 디자인", "Next.js 개발", "반응형 · 인터랙션"],
-    tags: ["SaaS", "Landing", "Interaction"],
+      "흩어진 업무를 연결하고 반복 작업을 자동화하는 B2B SaaS를 가정한 콘셉트 웹서비스입니다. 와이드 영문 타이포그래피와 웜 그레이 톤의 랜딩페이지에 월간·연간 요금 전환 애니메이션을 넣었고, Firebase로 회원가입·로그인과 회원 데이터베이스를 연결했습니다. 가입하면 회원 정보가 데이터베이스에 저장되고, 로그인한 사용자만 자신의 체험 정보를 대시보드에서 볼 수 있습니다.",
+    scope: ["UI 디자인", "Next.js 프론트엔드", "Firebase 인증 · DB · 보안 규칙"],
+    tags: ["Full-Stack", "Firebase", "SaaS"],
     thumb: "/portfolio/flown/thumb.webp",
     thumbAlt: "FLOWN 랜딩페이지 첫 화면: 화면 가득한 FLOWN 로고 위에 기울어진 대시보드 창",
     concept: true,
     shots: [
       { src: "/portfolio/flown/01.webp", width: 1440, height: 5252, displayWidth: 1440, label: "랜딩페이지 — 1440px 데스크톱", alt: "FLOWN 랜딩페이지 데스크톱 전체 화면: 히어로, 핵심 기능 3가지, 워크플로 자동화, 자동 리포트, 지표, 고객 후기, 요금제, 무료 체험 신청" },
       { src: "/portfolio/flown/02.webp", width: 780, height: 15166, displayWidth: 390, label: "랜딩페이지 — 390px 모바일", alt: "FLOWN 랜딩페이지 모바일 전체 화면: 데스크톱과 같은 구성이 한 열로 쌓인 화면" },
+      { src: "/portfolio/flown/03.webp", width: 1440, height: 900, displayWidth: 1440, label: "회원가입 — Firebase Authentication", alt: "FLOWN 회원가입 화면: 이름, 회사명, 회사 이메일, 비밀번호 입력 칸과 7일 무료 체험 시작 버튼" },
+      { src: "/portfolio/flown/04.webp", width: 1440, height: 900, displayWidth: 1440, label: "로그인 후 대시보드 — Firestore 회원 데이터", alt: "FLOWN 대시보드 화면: 사용자 이름 환영 문구, 체험 7일 남음, 이메일·회사·가입일" },
+    ],
+    live: {
+      url: "/demo/flown/",
+      title: "실제로 회원가입·로그인해 볼 수 있습니다.",
+      note: "아무 이메일로 가입해 보세요. 인증 메일은 보내지 않으며, 실제로 쓰는 비밀번호는 넣지 마세요.",
+    },
+    backend: [
+      { title: "회원 인증 — Firebase Authentication", text: "이메일·비밀번호로 회원가입, 로그인, 로그아웃을 처리합니다. 로그인 상태가 유지되고, 로그인하지 않은 사용자는 대시보드에 들어갈 수 없습니다." },
+      { title: "데이터베이스 — Cloud Firestore", text: "가입할 때 이름·회사·이메일·플랜·가입 시각을 사용자별 문서로 저장하고, 대시보드에서 불러와 체험 남은 일수를 계산합니다." },
+      { title: "보안 규칙 — 서버에서 검사", text: "사용자는 자기 문서만 읽고, 가입할 때 한 번만 만들 수 있습니다. 정해진 필드만 저장되고 플랜은 trial, 가입 시각은 서버 시각만 받으며, 수정·삭제와 남의 문서 접근은 서버가 거부합니다." },
+      { title: "검증", text: "가입·로그인·로그아웃·중복 가입·틀린 비밀번호를 브라우저 자동화로 확인했고, 권한 상승·삭제·남의 문서 조회·전체 목록 조회 같은 우회 요청이 거부되는지 데이터베이스에 직접 요청해 확인했습니다." },
     ],
   },
 ];

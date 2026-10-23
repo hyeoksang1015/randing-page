@@ -181,6 +181,7 @@ try {
         const expect = [WORKS[i - 1], WORKS[i + 1]].filter(Boolean).map((s) => `/portfolio/${s}/`);
         check(`/portfolio/${slug}/ 이전·다음 링크`, JSON.stringify(nav) === JSON.stringify(expect), nav.join(","));
         const title = await p.js("document.title");
+        if (slug === "flown") check("/portfolio/flown/ 라이브 데모 버튼·백엔드 구성", JSON.stringify(await p.js("[...document.querySelectorAll('main a[target=_blank]')].map(a => a.getAttribute('href'))")) === '["/demo/flown/signup/","/demo/flown/"]' && (await p.js("document.querySelectorAll('#backend-title + * li, [aria-labelledby=backend-title] li').length")) === 4);
         check(`/portfolio/${slug}/ 제목·canonical`, title.endsWith("| 웹메이트(Webmate)") && (await p.js("document.querySelector('link[rel=canonical]').href")).endsWith(`/portfolio/${slug}/`), title);
       }
       await p.shot(`work-${slug}-${w}`);
@@ -202,7 +203,7 @@ try {
   await d.go("/portfolio/form-space/");
   await d.send("Page.reload"); await sleep(1000);
   check("상세 페이지 새로고침", (await d.js("document.querySelector('h1').textContent")).includes("FORM / SPACE"));
-  for (const [url, status] of [["/", 200], ["/portfolio/greenform/", 200], ["/portfolio/none/", 404], ["/nope/", 404], ["/sitemap.xml", 200], ["/robots.txt", 200], ["/icon.png", 200], ["/og-image.png", 200]]) {
+  for (const [url, status] of [["/", 200], ["/portfolio/greenform/", 200], ["/portfolio/none/", 404], ["/nope/", 404], ["/sitemap.xml", 200], ["/robots.txt", 200], ["/icon.png", 200], ["/og-image.png", 200], ["/demo/flown/", 200], ["/demo/flown/signup/", 200], ["/demo/flown/dashboard/", 200]]) {
     check(`${url} → ${status}`, (await fetch(BASE + url)).status === status);
   }
   const sitemap = await (await fetch(BASE + "/sitemap.xml")).text();
