@@ -9,7 +9,7 @@ export const site = {
   email: "01059182043k@gmail.com",
   hours: "평일 11:00 ~ 22:00",
   // Web3Forms 접근 키. 받는 메일 주소에 묶여 있고 브라우저에 공개돼도 되는 값이다(web3forms.com 에서 발급).
-  inquiryKey: "",
+  inquiryKey: "d685756b-f1bd-4cfc-94f6-7835f57b8ff7",
 };
 
 export const mailtoHref = `mailto:${site.email}?subject=${encodeURIComponent("[프로젝트 문의] 웹사이트 제작 의뢰")}`;
