@@ -28,7 +28,7 @@ export default function Footer() {
           <nav aria-label="푸터 메뉴" className="space-y-2 text-xs md:col-span-3">
             <span className="mb-3 block font-mono text-[11px] uppercase tracking-wider text-neutral-400">Navigation</span>
             <div className="flex flex-col space-y-1.5 text-neutral-400">
-              {[...nav, { href: "/#contact", label: "문의하기", en: "Contact" }].map((n) => (
+              {[...nav, { href: "/inquiry/", label: "프로젝트 문의서", en: "Inquiry" }].map((n) => (
                 <Link key={n.href} href={n.href} className="py-0.5 transition-colors hover:text-white">
                   {n.label} ({n.en})
                 </Link>

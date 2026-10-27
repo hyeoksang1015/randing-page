@@ -11,6 +11,7 @@ const paths = {
   send: "M4 4.5 20.5 12 4 19.5l2.6-7.5L4 4.5ZM6.6 12H12",
   menu: "M4 7h16M4 12h16M4 17h16",
   close: "M6 6l12 12M18 6 6 18",
+  check: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM8 12.5l2.7 2.7L16 9.5",
 } as const;
 
 export type IconName = keyof typeof paths;

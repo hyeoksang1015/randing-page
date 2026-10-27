@@ -150,21 +150,53 @@ try {
   const covers = await m.js(`(() => { const c = document.querySelector('#portfolio article'); const a = c.querySelector('a'); const r = c.getBoundingClientRect(); const ar = getComputedStyle(a, '::after'); return ar.position === 'absolute' && ar.content !== 'none'; })()`);
   check("카드 전체가 눌림(늘린 링크)", covers);
 
-  // 문의 폼: 빈 값 → 오류, 올바른 값 → 메일 안내
-  await m.js("document.querySelector('#contact form button[type=submit]').click()"); await sleep(200);
-  const errs = await m.js("[...document.querySelectorAll('#contact [aria-invalid=true]')].map(e => e.name)");
-  check("빈 폼 제출 → 필수 항목 오류", JSON.stringify(errs) === JSON.stringify(["name", "contact", "message"]), errs.join(","));
-  check("첫 오류 칸으로 포커스", (await m.js("document.activeElement?.name")) === "name");
-  check("오류 메시지가 칸에 연결됨", await m.js("(() => { const i = document.querySelector('#inquiry-name'); return !!document.getElementById(i.getAttribute('aria-describedby'))?.textContent; })()"));
-  await m.js(`(() => { const set = (sel, v) => { const e = document.querySelector(sel); const proto = e.tagName === 'TEXTAREA' ? HTMLTextAreaElement : HTMLInputElement; Object.getOwnPropertyDescriptor(proto.prototype, 'value').set.call(e, v); e.dispatchEvent(new Event('input', { bubbles: true })); }; set('#inquiry-name', '테스트'); set('#inquiry-contact', 'abc'); set('#inquiry-message', '랜딩페이지 제작 문의입니다.'); })()`);
-  await m.js("document.querySelector('#contact form button[type=submit]').click()"); await sleep(200);
-  check("잘못된 연락처 형식 → 오류", JSON.stringify(await m.js("[...document.querySelectorAll('#contact [aria-invalid=true]')].map(e => e.name)")) === '["contact"]');
-  await m.js(`(() => { const e = document.querySelector('#inquiry-contact'); Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(e, '010-1234-5678'); e.dispatchEvent(new Event('input', { bubbles: true })); })()`);
-  await m.js("document.querySelector('#contact form button[type=submit]').click()"); await sleep(400);
-  check("올바른 값 → 메일 앱 안내와 복사 버튼", await m.js("[...document.querySelectorAll('#contact button')].some(b => b.textContent.includes('문의 내용 복사'))"));
-  check("가짜 '접수 완료' 문구 없음", !(await m.js("document.body.innerText.includes('접수되었습니다')")));
-
+  check("홈 문의 영역 → 문의서 페이지 버튼", await m.js("[...document.querySelectorAll('#contact a')].some(a => a.getAttribute('href') === '/inquiry/' && a.textContent.includes('문의서'))"));
   await m.close();
+
+  // ── 문의서 페이지: 화면 폭별 레이아웃
+  for (const w of [375, 1440]) {
+    const p = await openPage(w);
+    await p.go("/inquiry/");
+    check(`[${w}] /inquiry/ 가로 스크롤 없음`, await p.noOverflow());
+    check(`[${w}] /inquiry/ 질문 7묶음`, (await p.js("document.querySelectorAll('main form section').length")) === 7);
+    const small = await p.js(`[...document.querySelectorAll('main form input.peer + span, main form button, main form input[type=text]')].filter(e => e.offsetParent && e.getBoundingClientRect().height < 44).map(e => (e.textContent || e.name).trim().slice(0, 20) + ':' + Math.round(e.getBoundingClientRect().height))`);
+    if (w === 375) check("[375] /inquiry/ 선택지·버튼 터치 영역 44px 이상", small.length === 0, small.join(", "));
+    await p.shot(`inquiry-${w}`);
+    await p.close();
+  }
+
+  // ── 문의서: 빈 값 → 오류, 잘못된 연락처 → 오류, 올바른 값 → 전송 (fetch 는 가짜 응답)
+  const q = await openPage(375);
+  await q.go("/inquiry/");
+  check("/inquiry/ 제목·canonical", (await q.js("document.title")).startsWith("프로젝트 문의서") && (await q.js("document.querySelector('link[rel=canonical]').href")).endsWith("/inquiry/"));
+  const submit = "document.querySelector('main form button[type=submit]').click()";
+  const invalid = "[...document.querySelectorAll('main form [aria-invalid=true]')].map(e => e.name || e.querySelector('input').name)";
+  await q.js(submit); await sleep(200);
+  const qerrs = await q.js(invalid);
+  check("빈 문의서 → 필수 항목 오류", JSON.stringify(qerrs) === JSON.stringify(["company", "name", "contact", "channel", "purpose"]), qerrs.join(","));
+  check("첫 오류 칸으로 포커스", (await q.js("document.activeElement?.name")) === "company");
+  check("오류 메시지가 칸에 연결됨", await q.js("(() => { const i = document.querySelector('#q-company'); return !!document.getElementById(i.getAttribute('aria-describedby'))?.textContent; })()"));
+  check("동의 안 하면 오류", await q.js("document.body.innerText.includes('개인정보 수집·이용에 동의해 주세요')"));
+  const fill = (id, v) => q.js(`(() => { const e = document.querySelector('#q-${id}'); const proto = e.tagName === 'TEXTAREA' ? HTMLTextAreaElement : HTMLInputElement; Object.getOwnPropertyDescriptor(proto.prototype, 'value').set.call(e, ${JSON.stringify(v)}); e.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+  const pick = (name, v) => q.js(`document.querySelector('input[name=${name}][value="${v}"]').click()`);
+  await fill("company", "(주)테스트"); await fill("name", "홍길동"); await fill("contact", "abc");
+  await pick("channel", "이메일"); await pick("purpose", "리뉴얼"); await pick("goal", "문의 증가"); await pick("goal", "예약");
+  await q.js("document.querySelector('input[name=goal_note]').value = '브랜드 인지도'");
+  await q.js("document.querySelector('input[name=consent]').click()");
+  await q.js(submit); await sleep(200);
+  check("잘못된 연락처 형식 → 오류", JSON.stringify(await q.js(invalid)) === '["contact"]');
+  await fill("contact", "client@example.com");
+  // 전송 실패 → 안내와 함께 입력값 유지
+  await q.js(`window.fetch = async () => new Response(JSON.stringify({ success: false }), { status: 400 })`);
+  await q.js(submit); await sleep(400);
+  check("전송 실패 → 메일·전화 안내, 입력값 유지", (await q.js("!!document.querySelector('main [role=alert]')?.textContent.includes('보내지 못했습니다')")) && (await q.js("document.querySelector('#q-name').value")) === "홍길동");
+  await q.js(`window.fetch = async (url, o) => { window.__sent = { url, body: JSON.parse(o.body) }; return new Response(JSON.stringify({ success: true }), { status: 200 }); }`);
+  await q.js(submit); await sleep(400);
+  const sent = await q.js("window.__sent");
+  check("올바른 값 → Web3Forms 로 전송", sent?.url === "https://api.web3forms.com/submit" && sent.body.subject === "[프로젝트 문의] (주)테스트 홍길동 — 리뉴얼" && sent.body.replyto === "client@example.com" && sent.body["2-2. 핵심 목표"] === "문의 증가, 예약, 기타: 브랜드 인지도" && sent.body["1-2. 사업장 주소"] === "-", JSON.stringify(sent?.body ?? {}).slice(0, 200));
+  check("전송 후 접수 완료 화면", await q.js("document.querySelector('main [role=status]')?.textContent.includes('접수되었습니다')"));
+  await q.shot("inquiry-sent-375");
+  await q.close();
 
   // ── 포트폴리오 상세
   for (const [i, slug] of WORKS.entries()) {
@@ -203,11 +235,11 @@ try {
   await d.go("/portfolio/form-space/");
   await d.send("Page.reload"); await sleep(1000);
   check("상세 페이지 새로고침", (await d.js("document.querySelector('h1').textContent")).includes("FORM / SPACE"));
-  for (const [url, status] of [["/", 200], ["/portfolio/greenform/", 200], ["/portfolio/none/", 404], ["/nope/", 404], ["/sitemap.xml", 200], ["/robots.txt", 200], ["/icon.png", 200], ["/og-image.png", 200], ["/demo/flown/", 200], ["/demo/flown/signup/", 200], ["/demo/flown/dashboard/", 200]]) {
+  for (const [url, status] of [["/", 200], ["/portfolio/greenform/", 200], ["/portfolio/none/", 404], ["/nope/", 404], ["/inquiry/", 200], ["/sitemap.xml", 200], ["/robots.txt", 200], ["/icon.png", 200], ["/og-image.png", 200], ["/demo/flown/", 200], ["/demo/flown/signup/", 200], ["/demo/flown/dashboard/", 200]]) {
     check(`${url} → ${status}`, (await fetch(BASE + url)).status === status);
   }
   const sitemap = await (await fetch(BASE + "/sitemap.xml")).text();
-  check(`sitemap: 홈 + 상세 ${WORKS.length}개`, (sitemap.match(/<loc>/g) ?? []).length === WORKS.length + 1 && WORKS.every((s) => sitemap.includes(`/portfolio/${s}/</loc>`)));
+  check(`sitemap: 홈 + 문의서 + 상세 ${WORKS.length}개`, (sitemap.match(/<loc>/g) ?? []).length === WORKS.length + 2 && sitemap.includes("/inquiry/</loc>") && WORKS.every((s) => sitemap.includes(`/portfolio/${s}/</loc>`)));
   const head = readFileSync(path.join(OUT, "index.html"), "utf8");
   for (const [name, re] of [["lang=ko", /<html lang="ko"/], ["title", /<title>웹메이트\(Webmate\) \| /], ["description", /<meta name="description"/], ["og:image", /property="og:image" content="https?:\/\/[^"]+\/og-image\.png"/], ["canonical", /rel="canonical"/], ["icon", /rel="icon"/], ["JSON-LD", /application\/ld\+json/]]) check(`head: ${name}`, re.test(head));
 

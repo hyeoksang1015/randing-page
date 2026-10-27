@@ -35,7 +35,7 @@ export default function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <Link href="/#contact" className="hidden items-center justify-center gap-1 rounded bg-neutral-900 px-4 py-2 text-xs font-medium tracking-wide text-white transition-colors hover:bg-neutral-800 sm:inline-flex">
+          <Link href="/inquiry/" className="hidden items-center justify-center gap-1 rounded bg-neutral-900 px-4 py-2 text-xs font-medium tracking-wide text-white transition-colors hover:bg-neutral-800 sm:inline-flex">
             <span>프로젝트 문의</span>
             <Icon name="arrowOutward" className="size-3.5" />
           </Link>
@@ -63,7 +63,7 @@ export default function Header() {
               </li>
             ))}
             <li className="pt-4 pb-2">
-              <Link href="/#contact" onClick={() => setOpen(false)} className="flex min-h-12 items-center justify-center gap-1.5 rounded-sm bg-neutral-900 text-sm font-semibold text-white">
+              <Link href="/inquiry/" onClick={() => setOpen(false)} className="flex min-h-12 items-center justify-center gap-1.5 rounded-sm bg-neutral-900 text-sm font-semibold text-white">
                 프로젝트 문의하기
                 <Icon name="arrowOutward" className="size-4" />
               </Link>

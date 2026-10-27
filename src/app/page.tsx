@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import Icon, { type IconName } from "@/components/Icon";
-import InquiryForm from "@/components/InquiryForm";
 import SectionHeader from "@/components/SectionHeader";
 import { PORTFOLIO_SLOTS, works } from "@/data/portfolio";
 import { mailtoHref, site } from "@/data/site";
+import { SECTIONS } from "@/lib/inquiry";
 
 const tags = ["STRATEGY", "UI/UX DESIGN", "PUBLISHING", "FULL-STACK"];
 
@@ -103,10 +103,10 @@ export default function Home() {
                   <span>포트폴리오 보기</span>
                   <Icon name="arrowDown" />
                 </a>
-                <a className={btnSecondary} href="#contact">
+                <Link className={btnSecondary} href="/inquiry/">
                   <span>프로젝트 문의하기</span>
                   <Icon name="arrowOutward" />
-                </a>
+                </Link>
               </div>
               <dl className="grid grid-cols-3 gap-4 border-t border-neutral-200 pt-6 sm:gap-6">
                 {facts.map((f) => (
@@ -223,7 +223,7 @@ export default function Home() {
                 </div>
                 <div className="mt-6 flex flex-col gap-3 border-t border-neutral-200/80 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
                   <span className="text-neutral-500">추천: {s.rec}</span>
-                  <a className="inline-flex min-h-11 shrink-0 sm:min-h-6 items-center gap-1 font-medium text-neutral-900 hover:underline" href="#contact">
+                  <a className="inline-flex min-h-11 shrink-0 sm:min-h-6 items-center gap-1 font-medium text-neutral-900 hover:underline" href="/inquiry/">
                     문의하기 <span aria-hidden="true">→</span>
                   </a>
                 </div>
@@ -404,7 +404,27 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <InquiryForm />
+            <div className="rounded-sm border border-neutral-200 bg-neutral-50 p-6 sm:p-8 lg:col-span-6">
+              <div className="mb-4 flex items-center justify-between border-b border-neutral-200 pb-3">
+                <span className="font-mono text-xs font-semibold uppercase text-neutral-900">Project Inquiry</span>
+                <span className="font-mono text-[11px] text-neutral-500">{SECTIONS.length} STEPS</span>
+              </div>
+              <p className="text-sm leading-relaxed text-neutral-600">
+                문의서를 작성해 보내 주시면 웹메이트 메일로 바로 접수됩니다. 아는 만큼만 적어 주셔도 괜찮습니다.
+              </p>
+              <ol className="mt-5 grid grid-cols-1 gap-2 text-xs text-neutral-700 sm:grid-cols-2">
+                {SECTIONS.map(({ no, title: t }) => (
+                  <li key={t} className="flex items-center gap-2 rounded-sm border border-neutral-200 bg-white px-3 py-2.5">
+                    <span className="font-mono text-neutral-500">{no}</span>
+                    {t}
+                  </li>
+                ))}
+              </ol>
+              <Link href="/inquiry/" className="mt-6 flex min-h-11 w-full items-center justify-center gap-2 rounded-sm bg-neutral-900 py-3 text-xs font-semibold tracking-wide text-white transition-colors hover:bg-neutral-800">
+                <span>프로젝트 문의서 작성하기</span>
+                <Icon name="arrowOutward" className="size-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
