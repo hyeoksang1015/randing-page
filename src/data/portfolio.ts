@@ -25,13 +25,13 @@ export type Work = {
   concept: boolean;
   shots: Shot[];
   /** 실제로 써 볼 수 있는 데모(이 사이트 public/ 안 경로). 있으면 카드에 LIVE 배지, 상세에 데모 버튼이 생긴다. */
-  live?: { url: string; title: string; note: string };
+  live?: { url: string; title: string; note: string; try: { path: string; label: string } };
   /** 백엔드 구성. 있으면 상세 페이지에 "백엔드 구성" 영역이 생긴다. */
   backend?: { title: string; text: string }[];
 };
 
 /** 홈 포트폴리오 그리드 칸 수. 작업이 이보다 적으면 남는 칸은 "준비 중"으로 채운다. */
-export const PORTFOLIO_SLOTS = 4;
+export const PORTFOLIO_SLOTS = 6;
 
 // 상세 이미지 묶음 한 장. file 은 public 안 파일 번호, n/total 은 묶음 안에서의 순서다.
 const detail = (slug: string, file: number, n: number, total: number, label: string, alt: string, width: number, height: number): Shot => ({
@@ -132,6 +132,7 @@ export const works: Work[] = [
       url: "/demo/flown/",
       title: "실제로 회원가입·로그인해 볼 수 있습니다.",
       note: "아무 이메일로 가입해 보세요. 인증 메일은 보내지 않으며, 실제로 쓰는 비밀번호는 넣지 마세요.",
+      try: { path: "signup/", label: "회원가입 해 보기" },
     },
     backend: [
       { title: "회원 인증 — Firebase Authentication", text: "이메일·비밀번호로 회원가입, 로그인, 로그아웃을 처리합니다. 로그인 상태가 유지되고, 로그인하지 않은 사용자는 대시보드에 들어갈 수 없습니다." },
@@ -139,6 +140,34 @@ export const works: Work[] = [
       { title: "보안 규칙 — 서버에서 검사", text: "사용자는 자기 문서만 읽고, 가입할 때 한 번만 만들 수 있습니다. 정해진 필드만 저장되고 플랜은 trial, 가입 시각은 서버 시각만 받으며, 수정·삭제와 남의 문서 접근은 서버가 거부합니다." },
       { title: "검증", text: "가입·로그인·로그아웃·중복 가입·틀린 비밀번호를 브라우저 자동화로 확인했고, 권한 상승·삭제·남의 문서 조회·전체 목록 조회 같은 우회 요청이 거부되는지 데이터베이스에 직접 요청해 확인했습니다." },
     ],
+  },
+  {
+    slug: "lowwave",
+    title: "LOWWAVE COFFEE — 스페셜티 원두 쇼핑몰 · B2B 납품 사이트",
+    kind: "E-COMMERCE",
+    year: "2026",
+    host: "lowwave.preview",
+    summary: "스페셜티 원두 로스터리를 가정한 쇼핑몰. 원두 필터·장바구니·정기구독 할인·취향 퀴즈·카페 납품 신청까지 실제로 눌러 볼 수 있습니다.",
+    description:
+      "개인 고객에게는 원두를 팔고 카페에는 원두를 납품하는 로스터리를 가정한 콘셉트 사이트입니다. 브랜드 홈, 원두 목록, 원두 상세, B2B 납품 4개 화면 디자인을 Next.js로 옮기고, 원두 10종을 하나의 데이터로 묶어 모든 화면이 같은 가격과 정보를 쓰도록 했습니다. 산미·바디·배전도 필터와 정렬, 용량·분쇄도·정기구독 주기에 따라 바뀌는 가격, 새로고침해도 유지되는 장바구니와 무료배송 계산, 세 문항 취향 퀴즈, 커핑 예약, 입력 검사가 있는 납품 신청서까지 실제로 동작합니다.",
+    scope: ["디자인 시안 구현", "Next.js 프론트엔드", "쇼핑 기능 · 장바구니 · 폼 검증"],
+    tags: ["E-Commerce", "Next.js", "B2B"],
+    thumb: "/portfolio/lowwave/thumb.webp",
+    thumbAlt: "LOWWAVE COFFEE 홈 첫 화면: 'Find Your Wave in Every Pour.' 제목과 과테말라 게이샤 원두 패키지 카드",
+    concept: true,
+    shots: [
+      { src: "/portfolio/lowwave/01.webp", width: 1440, height: 3914, displayWidth: 1440, label: "브랜드 홈 — 1440px 데스크톱", alt: "LOWWAVE COFFEE 홈 전체 화면: 히어로, 로스팅 철학, 이달의 큐레이션, 패키징, 취향 퀴즈와 샘플러 신청, 고객 후기, 로스터리 랩 안내" },
+      { src: "/portfolio/lowwave/02.webp", width: 780, height: 16018, displayWidth: 390, label: "브랜드 홈 — 390px 모바일", alt: "LOWWAVE COFFEE 홈 모바일 전체 화면: 데스크톱과 같은 구성이 한 열로 쌓인 화면" },
+      { src: "/portfolio/lowwave/03.webp", width: 1440, height: 3919, displayWidth: 1440, label: "원두 목록 — 필터 · 정렬", alt: "LOWWAVE COFFEE 원두 목록 화면: 카테고리·배전도·산미·바디 필터와 원두 카드 목록" },
+      { src: "/portfolio/lowwave/04.webp", width: 1440, height: 3290, displayWidth: 1440, label: "원두 상세 — 옵션별 가격 계산", alt: "LOWWAVE COFFEE 원두 상세 화면: 사진 갤러리, 용량·분쇄도·정기구독 선택, 향미 정보, 추출 가이드, 구매 후기" },
+      { src: "/portfolio/lowwave/05.webp", width: 1440, height: 3041, displayWidth: 1440, label: "B2B 납품 — 샘플 신청서", alt: "LOWWAVE COFFEE B2B 납품 화면: 샘플러 키트 소개, 납품 신청서, 파트너 카페 후기, 자주 묻는 질문" },
+    ],
+    live: {
+      url: "/demo/lowwave/",
+      title: "실제로 원두를 고르고 장바구니에 담아 볼 수 있습니다.",
+      note: "결제와 신청서 전송은 하지 않는 데모입니다. 장바구니는 이 브라우저에만 저장됩니다.",
+      try: { path: "beans/", label: "원두 쇼핑 해 보기" },
+    },
   },
 ];
 

@@ -11,7 +11,8 @@ const OUT = path.resolve("out");
 const PORT = 4174, CDP = 9334, BASE = `http://127.0.0.1:${PORT}`;
 const SHOTS = process.env.SHOTS;
 const WIDTHS = [375, 430, 768, 1440, 1920];
-const WORKS = ["greenform", "form-space", "pulse", "flown"];
+const WORKS = ["greenform", "form-space", "pulse", "flown", "lowwave"];
+const SLOTS = 6;
 const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".xml": "application/xml", ".txt": "text/plain", ".png": "image/png", ".webp": "image/webp", ".woff2": "font/woff2", ".ico": "image/x-icon" };
 
 if (!existsSync(OUT)) throw new Error("out/ 이 없습니다. 먼저 npm run build 를 실행하세요.");
@@ -146,7 +147,7 @@ try {
 
   // 포트폴리오 카드: 모두 상세 링크, 남는 칸은 준비 중(링크 없음)
   const cards = await m.js(`[...document.querySelectorAll('#portfolio article')].map(a => a.querySelector('a')?.getAttribute('href') ?? null)`);
-  check(`포트폴리오 카드 ${WORKS.length}개 + 빈 자리 ${4 - WORKS.length}개`, JSON.stringify(cards) === JSON.stringify([...WORKS.map((s) => `/portfolio/${s}/`), ...Array(4 - WORKS.length).fill(null)]), JSON.stringify(cards));
+  check(`포트폴리오 카드 ${WORKS.length}개 + 빈 자리 ${SLOTS - WORKS.length}개`, JSON.stringify(cards) === JSON.stringify([...WORKS.map((s) => `/portfolio/${s}/`), ...Array(SLOTS - WORKS.length).fill(null)]), JSON.stringify(cards));
   const covers = await m.js(`(() => { const c = document.querySelector('#portfolio article'); const a = c.querySelector('a'); const r = c.getBoundingClientRect(); const ar = getComputedStyle(a, '::after'); return ar.position === 'absolute' && ar.content !== 'none'; })()`);
   check("카드 전체가 눌림(늘린 링크)", covers);
 
@@ -235,9 +236,13 @@ try {
   await d.go("/portfolio/form-space/");
   await d.send("Page.reload"); await sleep(1000);
   check("상세 페이지 새로고침", (await d.js("document.querySelector('h1').textContent")).includes("FORM / SPACE"));
-  for (const [url, status] of [["/", 200], ["/portfolio/greenform/", 200], ["/portfolio/none/", 404], ["/nope/", 404], ["/inquiry/", 200], ["/sitemap.xml", 200], ["/robots.txt", 200], ["/icon.png", 200], ["/og-image.png", 200], ["/demo/flown/", 200], ["/demo/flown/signup/", 200], ["/demo/flown/dashboard/", 200]]) {
+  for (const [url, status] of [["/", 200], ["/portfolio/greenform/", 200], ["/portfolio/none/", 404], ["/nope/", 404], ["/inquiry/", 200], ["/sitemap.xml", 200], ["/robots.txt", 200], ["/icon.png", 200], ["/og-image.png", 200], ["/demo/flown/", 200], ["/demo/flown/signup/", 200], ["/demo/flown/dashboard/", 200], ["/demo/lowwave/", 200], ["/demo/lowwave/beans/aricha/", 200], ["/demo/lowwave/images/tempo.webp", 200]]) {
     check(`${url} → ${status}`, (await fetch(BASE + url)).status === status);
   }
+  // 하위 경로에 올린 원두 사이트: 이미지·스크립트가 /demo/lowwave 아래에서 불러와지는지
+  await d.go("/demo/lowwave/beans/");
+  const lwBroken = await d.loadAllImages();
+  check("/demo/lowwave/ 이미지 모두 불러옴·담기 동작", lwBroken.length === 0 && (await d.js("document.querySelectorAll('main img').length")) > 5 && (await d.js("(async () => { document.querySelector('main article button[aria-label$=담기]').click(); await new Promise(r => setTimeout(r, 500)); return JSON.parse(localStorage.getItem('lowwave-cart') ?? '[]').length; })()")) === 1, lwBroken.join(", "));
   const sitemap = await (await fetch(BASE + "/sitemap.xml")).text();
   check(`sitemap: 홈 + 문의서 + 상세 ${WORKS.length}개`, (sitemap.match(/<loc>/g) ?? []).length === WORKS.length + 2 && sitemap.includes("/inquiry/</loc>") && WORKS.every((s) => sitemap.includes(`/portfolio/${s}/</loc>`)));
   const head = readFileSync(path.join(OUT, "index.html"), "utf8");

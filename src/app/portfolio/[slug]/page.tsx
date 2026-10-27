@@ -82,8 +82,8 @@ export default async function WorkPage({ params }: Props) {
               </div>
               {/* 데모는 이 앱 바깥의 정적 파일이라 Link 대신 a 로 새 탭에 연다. */}
               <div className="flex shrink-0 flex-wrap gap-3">
-                <a href={`${w.live.url}signup/`} target="_blank" rel="noopener" className="flex min-h-11 items-center gap-1 rounded-sm bg-white px-5 text-xs font-semibold text-neutral-900 hover:bg-neutral-200">
-                  회원가입 해 보기 <span aria-hidden="true">↗</span>
+                <a href={w.live.url + w.live.try.path} target="_blank" rel="noopener" className="flex min-h-11 items-center gap-1 rounded-sm bg-white px-5 text-xs font-semibold text-neutral-900 hover:bg-neutral-200">
+                  {w.live.try.label} <span aria-hidden="true">↗</span>
                 </a>
                 <a href={w.live.url} target="_blank" rel="noopener" className="flex min-h-11 items-center gap-1 rounded-sm border border-neutral-600 px-5 text-xs font-semibold text-white hover:border-white">
                   라이브 사이트 열기 <span aria-hidden="true">↗</span>
