@@ -1,0 +1,43 @@
+1:"$Sreact.fragment"
+2:"/demo/lowwave/_next/static/chunks/1e_ch8j3k6zjp.js"
+3:"/demo/lowwave/_next/static/chunks/0wtsziyzu0f6q.js"
+4:I[46207,["$2","$3"],"default"]
+5:I[2971,["$2","$3"],"default"]
+6:I[39756,["$2","$3"],"default"]
+7:I[37457,["$2","$3"],"default"]
+8:I[22016,["$2","$3"],""]
+9:I[11181,["$2","$3"],"default"]
+:HL["/demo/lowwave/_next/static/chunks/00ro-hk_u_js2.css","style"]
+f:X
+13:X
+13:C
+14:[["children",{"s":"__PAGE__","h":160,"d":{"r":"$L15","p":"$@16","v":null,"s":"$f"}}]]
+10:[["children",{"s":"checkout","h":96,"d":{"r":"$L11","p":"$@12","v":"$13","s":"$f"},"c":"$Q14"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/demo/lowwave/_next/static/chunks/00ro-hk_u_js2.css","precedence":"next"}],["$","script","script-0",{"src":"/demo/lowwave/_next/static/chunks/1e_ch8j3k6zjp.js","async":true}],["$","script","script-1",{"src":"/demo/lowwave/_next/static/chunks/0wtsziyzu0f6q.js","async":true}]],["$","html",null,{"lang":"ko","children":["$","body",null,{"children":[["$","a",null,{"href":"#main","className":"sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-navy-ink focus:px-4 focus:py-2 focus:text-body-sm focus:text-on-primary","children":"본문으로 건너뛰기"}],["$","$L4",null,{"children":[["$","$L5",null,{}],["$","main",null,{"id":"main","className":"w-full pt-20","children":["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}],"notFound":[["$","section",null,{"className":"wrap flex min-h-[60vh] flex-col items-center justify-center gap-space-md py-space-xl text-center","children":[["$","span",null,{"className":"text-label-caps uppercase tracking-wider text-cobalt-electric","children":"404 · Not Found"}],["$","h1",null,{"className":"text-headline-lg-mobile text-navy-ink md:text-headline-lg","children":"찾으시는 페이지가 없습니다."}],["$","$L8",null,{"href":"/beans/","className":"inline-flex min-h-11 items-center rounded-lg bg-cobalt-electric px-6 text-body-md font-semibold text-on-primary hover:bg-primary","children":"원두 컬렉션으로 가기"}]]}],[]]}]}],["$","footer",null,{"className":"w-full bg-surface-container-low","children":["$","div",null,{"className":"wrap pt-space-xl pb-space-lg","children":[["$","div",null,{"className":"mb-space-xl grid grid-cols-1 gap-space-lg md:grid-cols-4","children":[["$","div",null,{"className":"flex flex-col gap-space-xs","children":[["$","span",null,{"className":"text-headline-sm uppercase tracking-tight text-on-surface","children":"LowWave Coffee"}],["$","p",null,{"className":"text-body-sm text-on-surface-variant","children":"Specialty Coffee Atelier & Wholesale Purveyor. Architectural roasting profiles curated for sensory clarity."}],["$","$L8",null,{"href":"/#lab","className":"mt-space-sm inline-flex min-h-11 items-center gap-1 text-label-caps uppercase tracking-wider text-primary transition-colors hover:text-primary-container","children":"커핑 세션 예약 바로가기 →"}]]}],["$","div",null,{"className":"flex flex-col gap-space-xs","children":[["$","span",null,{"className":"text-label-caps uppercase tracking-wider text-on-surface-variant","children":"Roastery Lab"}],["$","p",null,{"className":"text-body-sm text-on-surface","children":"서울시 마포구 독막로 로우웨이브 아틀리에"}],["$","p",null,{"className":"text-body-sm text-on-surface-variant","children":["운영시간: ","09:00 - 18:00 (월-금)",["$","br",null,{}],"문의: ","hello@example.com"]}]]}],["$","nav",null,{"aria-label":"바로가기","className":"flex flex-col gap-space-xs","children":[["$","span",null,{"className":"text-label-caps uppercase tracking-wider text-on-surface-variant","children":"Quick Navigation"}],[["$","$L8","/beans/?category=single",{"href":"/beans/?category=single","className":"flex min-h-11 items-center text-body-sm text-on-surface-variant transition-colors hover:text-on-surface md:min-h-8","children":"시즌 싱글오리진 빈샵"}],["$","$L8","/wholesale/#inquiry",{"href":"/wholesale/#inquiry","className":"flex min-h-11 items-center text-body-sm text-on-surface-variant transition-colors hover:text-on-surface md:min-h-8","children":"사업자 원두 공급 문의"}],["$","$L8","/beans/aricha/#brew",{"href":"/beans/aricha/#brew","className":"flex min-h-11 items-center text-body-sm text-on-surface-variant transition-colors hover:text-on-surface md:min-h-8","children":"추출 가이드"}]]]}],["$","$L9",null,{}]]}],["$","div",null,{"className":"flex flex-col items-start justify-between gap-space-sm pt-space-md text-body-sm text-on-surface-variant md:flex-row md:items-center","children":[["$","div",null,{"className":"flex flex-wrap gap-x-space-md gap-y-space-xs","children":[["$","span",null,{"children":"주식회사 로우웨이브 (가상)"}],["$","span",null,{"children":["사업자등록번호: ","000-00-00000"]}],"$La"]}],"$Lb"]}],"$Lc"]}]}],"$Ld"]}]]}]}]]}],"p":"$@e","v":null,"s":"$f"},"c":"$Q10"},"h":{"r":"$L17","p":"$@18","v":null,"s":"$f"}},"a":"$@19","u":"$@1a","b":"gfJipK_Dt2EVR7Ie5PFca"}
+1b:I[18016,["$2","$3"],"default"]
+1c:"/demo/lowwave/_next/static/chunks/32ongbv4x5_h4.js"
+1d:"/demo/lowwave/_next/static/chunks/3tmcimp1g6lrc.js"
+1e:I[47352,["$2","$3","$1c","$1d"],"default"]
+1f:I[97367,["$2","$3"],"OutletBoundary"]
+20:"$Sreact.suspense"
+22:"ViewportBoundary"
+23:I[97367,["$2","$3"],"$22"]
+24:"MetadataBoundary"
+25:I[97367,["$2","$3"],"$24"]
+26:I[27201,["$2","$3"],"IconMark"]
+a:["$","span",null,{"children":["통신판매업신고: ","제0000-서울마포-0000호"]}]
+b:["$","span",null,{"className":"text-spec-num","children":"© 2026 LOWWAVE COFFEE ATELIER."}]
+c:["$","p",null,{"className":"mt-space-md text-body-sm text-on-surface-variant","children":"이 사이트는 포트폴리오용 가상 브랜드입니다. 상품·후기·수치는 예시이며, 결제는 토스페이먼츠 테스트 모드라 실제로 돈이 빠져나가지 않고 배송되지 않습니다."}]
+d:["$","$L1b",null,{}]
+11:["$","$1","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}]
+15:["$","$1","c",{"children":[["$","section",null,{"className":"wrap min-h-[70vh] py-space-xl","children":["$","$L1e",null,{}]}],[["$","script","script-0",{"src":"/demo/lowwave/_next/static/chunks/32ongbv4x5_h4.js","async":true}],["$","script","script-1",{"src":"/demo/lowwave/_next/static/chunks/3tmcimp1g6lrc.js","async":true}]],["$","$L1f",null,{"children":["$","$20",null,{"name":"Next.MetadataOutlet","children":"$@21"}]}]]}]
+17:["$","$1","h",{"children":[null,["$","$L23",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#faf9f6"}]]}],["$","$L25",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$20",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"주문 · 결제 | LowWave Coffee"}],["$","meta","1",{"name":"description","content":"산지의 떼루아를 정밀한 로스팅으로 옮기는 스페셜티 커피 로스터리. 싱글 오리진·시그니처 블렌드 원두와 카페 납품(B2B)을 소개하는 포트폴리오용 가상 브랜드 사이트입니다."}],["$","meta","2",{"name":"robots","content":"noindex"}],["$","meta","3",{"property":"og:title","content":"LowWave Coffee — Specialty Roastery & Lab"}],["$","meta","4",{"property":"og:description","content":"산지의 떼루아를 정밀한 로스팅으로 옮기는 스페셜티 커피 로스터리. 싱글 오리진·시그니처 블렌드 원두와 카페 납품(B2B)을 소개하는 포트폴리오용 가상 브랜드 사이트입니다."}],["$","meta","5",{"property":"og:site_name","content":"LowWave Coffee"}],["$","meta","6",{"property":"og:locale","content":"ko_KR"}],["$","meta","7",{"property":"og:image","content":"http://localhost:3000/images/geisha-reserve.webp"}],["$","meta","8",{"property":"og:type","content":"website"}],["$","meta","9",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","10",{"name":"twitter:title","content":"LowWave Coffee — Specialty Roastery & Lab"}],["$","meta","11",{"name":"twitter:description","content":"산지의 떼루아를 정밀한 로스팅으로 옮기는 스페셜티 커피 로스터리. 싱글 오리진·시그니처 블렌드 원두와 카페 납품(B2B)을 소개하는 포트폴리오용 가상 브랜드 사이트입니다."}],["$","meta","12",{"name":"twitter:image","content":"http://localhost:3000/images/geisha-reserve.webp"}],["$","link","13",{"rel":"icon","href":"/demo/lowwave/icon.svg?icon.39phj-i2l0jv3.svg","sizes":"any","type":"image/svg+xml"}],["$","$L26","14",{}]]}]}],null]}],null]}]
+21:null
+1a:true
+f:300
+f:C
+19:0
+12:"$undefined"
+18:"$undefined"
+16:"$undefined"
+e:"$undefined"

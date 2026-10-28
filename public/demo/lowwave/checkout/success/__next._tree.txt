@@ -1,0 +1,6 @@
+:HL["/demo/lowwave/_next/static/chunks/00ro-hk_u_js2.css","style"]
+:HC["/",""]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":"success","h":96,"c":"$Q3"}]]
+1:[["children",{"s":"checkout","h":96,"c":"$Q2"}]]
+0:{"b":"gfJipK_Dt2EVR7Ie5PFca","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
