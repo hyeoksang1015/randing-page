@@ -161,6 +161,9 @@ export const works: Work[] = [
       { src: "/portfolio/lowwave/03.webp", width: 1440, height: 3919, displayWidth: 1440, label: "원두 목록 — 필터 · 정렬", alt: "LOWWAVE COFFEE 원두 목록 화면: 카테고리·배전도·산미·바디 필터와 원두 카드 목록" },
       { src: "/portfolio/lowwave/04.webp", width: 1440, height: 3290, displayWidth: 1440, label: "원두 상세 — 옵션별 가격 계산", alt: "LOWWAVE COFFEE 원두 상세 화면: 사진 갤러리, 용량·분쇄도·정기구독 선택, 향미 정보, 추출 가이드, 구매 후기" },
       { src: "/portfolio/lowwave/05.webp", width: 1440, height: 3041, displayWidth: 1440, label: "B2B 납품 — 샘플 신청서", alt: "LOWWAVE COFFEE B2B 납품 화면: 샘플러 키트 소개, 납품 신청서, 파트너 카페 후기, 자주 묻는 질문" },
+      { src: "/portfolio/lowwave/06.webp", width: 1440, height: 1454, displayWidth: 1440, label: "주문 · 결제 — 토스페이먼츠 결제위젯", alt: "LOWWAVE COFFEE 주문서 화면: 배송 정보 입력, 토스 결제위젯의 결제 수단 선택, 주문 상품과 결제 금액 요약" },
+      { src: "/portfolio/lowwave/07.webp", width: 1440, height: 1150, displayWidth: 1440, label: "관리자 대시보드 — 주문 · 배송 관리", alt: "LOWWAVE COFFEE 관리자 화면: 오늘 주문·누적 결제 금액·발송 대기·배송중 요약, 상태별 필터, 송장이 등록된 배송중 주문 상세" },
+      { src: "/portfolio/lowwave/08.webp", width: 1440, height: 520, displayWidth: 1440, label: "내 주문 — 배송 현황", alt: "LOWWAVE COFFEE 고객 주문 내역: 결제 완료부터 배송 완료까지 진행 막대와 송장번호, 취소·환불된 주문" },
     ],
     live: {
       url: "/demo/lowwave/",
